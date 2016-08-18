@@ -86,7 +86,7 @@ class Drop extends React.Component {
         });
         return (
 
-            <div className={this.props.className +"arno-drop"}>
+            <div className={this.props.className +" arno-drop"}>
                 {children}
             </div>
 
