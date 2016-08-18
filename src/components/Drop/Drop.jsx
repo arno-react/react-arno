@@ -11,7 +11,7 @@ class Drop extends React.Component {
     }
 
     onDragStart(e) {
-        e.dataTransfer.setData("arnoId", e.target.getAttribute('data-arnoid'));
+        e.dataTransfer.setData('arnoId', e.target.getAttribute('data-arnoid'));
     }
 
     onDragEnter(e) {
@@ -29,7 +29,7 @@ class Drop extends React.Component {
     onDrop(e) {
         e.preventDefault();
         let data = this.props.data;
-        var arnoId = e.dataTransfer.getData("arnoId");
+        var arnoId = e.dataTransfer.getData('arnoId');
         let Drag = data[arnoId];
         let dropId = getDropId(e.target);
 
@@ -72,12 +72,12 @@ class Drop extends React.Component {
     render() {
         // mode   String: vertical  horizontal 支持垂直、水平   默认：vertical
         let className =this.props.childrenClass + ' arno-drop-vertical';
-        if (this.props.mode == "horizontal") {
+        if (this.props.mode == 'horizontal') {
             className =this.props.childrenClass + ' arno-drop-horizontal';
         }
         let children = this.props.data.map((d, index)=> {
             return (
-                <div className={className} key={index} data-arnoid={index} draggable="true"
+                <div className={className} key={index} data-arnoid={index} draggable='true'
                      onDrop={this.onDrop} onDragOver={this.onDragOver}
                      onDragStart={this.onDragStart}>
                     {d}
@@ -86,7 +86,7 @@ class Drop extends React.Component {
         });
         return (
 
-            <div className={this.props.className +" arno-drop"}>
+            <div className={this.props.className +' arno-drop'}>
                 {children}
             </div>
 

@@ -80,8 +80,8 @@ class List extends React.Component {
                     <Drop data={this.state.data} className="drop"  childrenClass="children" onDrop={this.onDrop.bind(this)} mode="horizontal"/>
                 </div>
                 <div>
-                    <Dustbin data={SData} className="dustbin-div"  childrenClass="children"onDrop={this.onDropS.bind(this)}/>
-                    <Dustbin data={TData} className="dustbin-div"  childrenClass="children" onDrop={this.onDropT.bind(this)}/>
+                    <Dustbin data={SData} className="dustbin-div"  childrenClass="children"onDrop={this.onDropS.bind(this)} mode="horizontal"/>
+                    <Dustbin data={TData} className="dustbin-div"  childrenClass="children" onDrop={this.onDropT.bind(this)}mode="horizontal"/>
                 </div>
             </div>
 
