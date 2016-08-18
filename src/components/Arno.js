@@ -1,7 +1,7 @@
-import Drop from './Drop/Drop';
+import Drop from './Drop/';
 const Arno = {
-    Drop:new Drop
+    Drop: Drop
 };
-export default Arno;
+module.exports = Arno;
 
 
