@@ -1,6 +1,5 @@
 h5拖拽组件
 
-![](http://7xlnio.com1.z0.glb.clouddn.com/16-7-29/46885177.jpg)
 
 ## 组件介绍
 
