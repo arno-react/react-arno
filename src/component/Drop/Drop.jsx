@@ -1,6 +1,5 @@
 import React from 'react';
-import './styles/Drop.css';
-class Dustbin extends React.Component {
+class Drop extends React.Component {
     constructor(props) {
         super(props);
         this.onDragStart = this.onDragStart.bind(this);
@@ -28,8 +27,44 @@ class Dustbin extends React.Component {
 
     onDrop(e) {
         e.preventDefault();
+        let data = this.props.data;
         var arnoId = e.dataTransfer.getData('arnoId');
-        this.props.onDrop(arnoId);
+        let Drag = data[arnoId];
+        let dropId = getDropId(e.target);
+
+        function getDropId(elm) {
+            let id = elm.getAttribute('data-arnoid');
+            if (id == 0 || id) {
+                return id;
+            } else {
+                return getDropId(elm.parentNode);
+            }
+
+        }
+
+        let outData = [];
+        data.forEach((d, index)=> {
+            if (dropId < arnoId) {
+                if (index == dropId) {
+                    outData.push(Drag);
+                }
+                if (index != arnoId) {
+                    outData.push(d);
+                }
+            } else {
+
+                if (index != arnoId) {
+                    outData.push(d);
+                }
+                if (index == dropId) {
+                    outData.push(Drag);
+                }
+            }
+
+
+        });
+        this.props.onDrop(outData);
+
     }
 
 
@@ -42,6 +77,7 @@ class Dustbin extends React.Component {
         let children = this.props.data.map((d, index)=> {
             return (
                 <div className={className} key={index} data-arnoid={index} draggable='true'
+                     onDrop={this.onDrop} onDragOver={this.onDragOver}
                      onDragStart={this.onDragStart}>
                     {d}
                 </div>
@@ -49,7 +85,7 @@ class Dustbin extends React.Component {
         });
         return (
 
-            <div className={'arno-drop ' +this.props.className } onDrop={this.onDrop} onDragOver={this.onDragOver}>
+            <div className={this.props.className +' arno-drop'}>
                 {children}
             </div>
 
@@ -57,4 +93,4 @@ class Dustbin extends React.Component {
         );
     }
 }
-export default Dustbin;
+export default Drop;

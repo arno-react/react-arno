@@ -1,0 +1,9 @@
+.arno-drop {
+    display: block
+}
+.arno-drop .arno-drop-vertical {
+    display: block
+}
+.arno-drop .arno-drop-horizontal {
+    display: inline-block
+}

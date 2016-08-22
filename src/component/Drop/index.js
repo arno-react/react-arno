@@ -1,9 +1,5 @@
 //'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _Drop = require('./Drop');
 
 var _Drop2 = _interopRequireDefault(_Drop);

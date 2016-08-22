@@ -1,6 +1,6 @@
 import React from 'react';
-import Reflux from 'reflux';
-import {Drop} from './Arno';
+import Rrno from '../dist/arno.min';
+const Drop=Rrno.Drop;
 const Dustbin = Drop.Dustbin;
 class List extends React.Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class List extends React.Component {
                 <div style={{height:'50px',textAlign:'center'}}><p>8888888888888888</p><p>8888888888888888</p></div>,
                 <div style={{height:'50px',textAlign:'center'}}><p>9999999999999999</p><p>9999999999999999</p></div>
             ],
-            SData: ['内容0', '内容1', '内容2', '内容3', '内容4', '内容5', '内容6', '内容7', '内容8', '内容9'],
+            SData: ['内容0', '内容1', '内容2', '内容3', '内容4', '内容5', '内容6', '内容7', '内容8', '内容10'],
             TData: []
         };
     }
@@ -63,7 +63,6 @@ class List extends React.Component {
     }
 
     render() {
-        console.log(Drop);
         let SData = this.state.SData.map((d)=> {
             return (
                 <span>{d}</span>
