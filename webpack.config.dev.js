@@ -26,16 +26,20 @@ module.exports = {
         })
     ],
     module: {
-        loaders: [{
-            test: /\.(js|jsx)$/,
-            loader: 'babel'
-        }, {
-            test: /(fontawesome-webfont|glyphicons-halflings-regular)\.(woff|woff2|ttf|eot|svg)($|\?)/,
-            loader: 'url?limit=1024&name=fonts/[name].[hash].[ext]'
-        }, {
-            test: /\.(css|less)$/,
-            loader: 'style!css?-autoprefixer!postcss!less'
-        }]
+        loaders: [
+            {
+                test: /\.(js|jsx)$/,
+                loader: 'babel'
+            },
+            {
+                test: /\.(png|jpg|gif|woff|woff2|ttf|eot|svg)$/,
+                loader: 'url-loader?limit=1024&name=fonts/[name].[hash].[ext]'
+            },
+            {
+                test: /\.(css|less)$/,
+                loader: 'style!css?-autoprefixer!postcss!less'
+            }
+        ]
     },
     postcss: function () {
         return [autoprefixer({browsers: ['iOS >= 8', 'Android >= 4.1']}), precss];
