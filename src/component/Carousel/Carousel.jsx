@@ -63,101 +63,157 @@ class Arrows extends React.Component {
         );
     }
 }
+
+class Itme extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0
+        }
+    }
+
+    componentDidMount() {
+        let count = findDOMNode(this.refs['carousel']).getElementsByTagName("li").length;
+        this.setState({
+            count: count
+        })
+    }
+
+    render() {
+
+        return (
+            <li className="arno-carousel-itme" style={{width:100/this.state.count +'%'}}>
+                {this.props.children}
+            </li>
+        );
+    }
+}
 class Carousel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             items: [],
-            speed: 1.2,// 是图片切换的时候的速度时间，需要配置一个 number 类型的数据，决定时间是几秒
-            delay: 2.1, // 是在需要自动轮播的时候，每张图片停留的时间，一个 number 值；
+            delay: 10, // 是在需要自动轮播的时候，每张图片停留的时间，一个 number 值；
             pause: true, // 是在需要自动轮播的时候，鼠标停留在图片上，是否暂停轮播，是一个布尔值；
             autoPlay: true, //是配置是否需要自动轮播，是一个布尔值；
             dots: true, // 是配置是否需要轮播下面的小点 是一个布尔值；
             arrows: true, //是配置是否需要轮播的前后箭头 是一个布尔值；
             active: 1
         };
-        this.setSpeed = this.setSpeed.bind(this);
         this.stopPlay = this.stopPlay.bind(this);
         this.autoPlay = this.autoPlay.bind(this);
 
     }
 
     componentWillMount() {
-        this.autoPlay()
-    }
-    componentDidMount(){
+
+        let delay = this.state.delay, pause = this.state.pause, autoPlay = this.state.autoPlay,
+            dots = this.state.dots, arrows = this.state.arrows;
+
+        if (this.props.delay) {
+            delay = this.props.delay;
+        }
+        if (this.props.pause == false) {
+            pause = this.props.pause;
+        }
+        if (this.props.autoPlay == false) {
+            autoPlay = this.props.autoPlay;
+        }
+        if (this.props.dots == false) {
+            dots = this.props.dots;
+        }
+        if (this.props.arrows == false) {
+            arrows = this.props.arrows;
+        }
+        this.setState({
+            delay, pause, autoPlay, dots, arrows
+        });
+
 
     }
+
+    componentDidMount() {
+        this.width = findDOMNode(this.refs['carousel']).offsetWidth / (this.props.items.length + 2 );
+        findDOMNode(this.refs['carousel']).setAttribute('style',
+            'left: -' + this.width * this.state.active + 'px;width:' + (this.props.items.length + 2 ) * 100 + '%');
+        if (this.state.autoPlay) {
+            this.autoPlay()
+        }
+    }
+
     autoPlay() {
-        if (this.state.pause) {
+        if (this.state.pause && this.state.autoPlay) {
             let _this = this;
             clearInterval(this.t);
             this.t = setInterval(function () {
-                //_this.onClick(
-                //   _this.state.active + 1
-                //)
-            }, this.state.delay * 1000)
+                if(_this.state.active >=(_this.props.items.length + 2)){
+                    return;
+                }
+                _this.onClick(
+                    _this.state.active + 1
+                )
+            }, this.state.delay * 1000 + this.width)
         }
 
     }
 
     stopPlay() {
-        clearInterval(this.t);
+        if (this.state.pause) {
+            clearInterval(this.t);
+        }
     }
 
     componentDidUpdate() {
 
         clearInterval(this.s);
-        let _this =this;
-        let width =findDOMNode(this.refs['carousel']).offsetWidth/(this.props.items.length + 2 );
-        let left =findDOMNode(this.refs['carousel']).offsetLeft;
+        let _this = this;
+        let width = findDOMNode(this.refs['carousel']).offsetWidth / (this.props.items.length + 2 );
+        let left = findDOMNode(this.refs['carousel']).offsetLeft;
 
-        let speed =1;
-        let time =this.state.speed * 1000/(-width*this.state.active - left);
-        if(-width*this.state.active <left){
+        let speed = 1;
+        let oldSpeed = 1;
+
+        if (-width * this.state.active < left) {
             speed = -1;
-            time =this.state.speed * 1000/(width*this.state.active + left);
+            oldSpeed = -1;
+
         }
-        console.log(left);
-        console.log(width);
-        console.log(-width*this.state.active);
-        console.log(time);
-        this.s = setInterval(function () {
-            let width =findDOMNode(_this.refs['carousel']).offsetWidth/(_this.props.items.length + 2 );
-            let left =findDOMNode(_this.refs['carousel']).offsetLeft;
-            let speed =1;
-            if(-width*_this.state.active ==left){
-                clearInterval(_this.s);
-            }
-            findDOMNode(_this.refs['carousel']).setAttribute('style',
-                'left:' +(left+speed)+'px;width:' + (_this.props.items.length + 2 ) * 100 + '%');
-        }, time)
-    }
-    setSpeed(){
-        clearInterval(this.s);
-        let _this =this;
-        let width =findDOMNode(this.refs['carousel']).offsetWidth/(this.props.items.length + 2 );
-        let left =findDOMNode(this.refs['carousel']).offsetLeft;
-        let speed =1;
-        let time =this.state.speed * 1000/(-width*this.state.active - left);
-        if(-width*this.state.active <left){
-            speed = -1;
-            time =this.state.speed * 1000/(width*this.state.active + left);
+        var sum = 0;
+        if (-width * this.state.active != left) {
+            this.s = setInterval(function () {
+
+
+                let width = findDOMNode(_this.refs['carousel']).offsetWidth / (_this.props.items.length + 2 );
+                let left = findDOMNode(_this.refs['carousel']).offsetLeft;
+                sum += speed;
+                if (sum == 100) {
+                    speed = speed * 30;
+                } else if (sum + 100 > width) {
+                    speed = oldSpeed;
+                }
+                findDOMNode(_this.refs['carousel']).setAttribute('style',
+                    'left:' + (left + speed) + 'px;width:' + (_this.props.items.length + 2 ) * 100 + '%');
+                if (-width * _this.state.active == left) {
+                    clearInterval(_this.s);
+                    if (_this.state.active == 0) {
+                        findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:-' + (width * _this.props.items.length) +
+                            'px;width:' + (_this.props.items.length + 2 ) * 100 + '%');
+                        _this.setState({
+                            active: _this.props.items.length
+                        })
+                    } else if (_this.state.active == (_this.props.items.length + 1)) {
+                        findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:-' + (width * 1) +
+                            'px;width:' + (_this.props.items.length + 2 ) * 100 + '%');
+                        _this.setState({
+                            active: 1
+                        })
+                    }
+                }
+            }, 1)
         }
-        this.s = setInterval(function () {
-            let width =findDOMNode(_this.refs['carousel']).offsetWidth/(_this.props.items.length + 2 );
-            let left =findDOMNode(_this.refs['carousel']).offsetLeft;
-            let speed =1;
-            if(-width*_this.state.active ==left){
-                clearInterval(_this.s);
-            }
-            findDOMNode(this.refs['carousel']).setAttribute('style',
-                'left:' +(left+speed)+' px;width:' + (this.props.items.length + 2 ) * 100 + '%');
-        }, time)
     }
 
     onClick(value) {
-        console.log(value);
         this.setState({
             active: value
         })
@@ -165,7 +221,6 @@ class Carousel extends React.Component {
 
 
     render() {
-        console.log(this.state.active);
         let count = this.props.items.length ? this.props.items.length + 2 : 0;
         let children = this.props.items.map((d, i)=> {
             if (d.href) {
@@ -200,12 +255,15 @@ class Carousel extends React.Component {
         );
         let dotsNode = <Dots items={this.props.items} active={this.state.active} onClick={this.onClick.bind(this)}/>;
         let arrowsNode = <Arrows active={this.state.active} onClick={this.onClick.bind(this)}/>;
+
         let ulStyle = {
-            left: -100 * this.state.active + "%",
-            //transition: 'left ' + this.state.speed + "s",
             width: count * 100 + "%"
         };
-
+        if (this.width) {
+            ulStyle = {
+                width: count * 100 + "%"
+            };
+        }
         return (
 
             <div className={'arno-carousel'} onMouseOver={this.stopPlay} onMouseOut={this.autoPlay}>

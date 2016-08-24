@@ -186,56 +186,128 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return Arrows;
 	}(_react2.default.Component);
 
-	var Carousel = function (_React$Component3) {
-	    _inherits(Carousel, _React$Component3);
+	var Itme = function (_React$Component3) {
+	    _inherits(Itme, _React$Component3);
+
+	    function Itme(props) {
+	        _classCallCheck(this, Itme);
+
+	        var _this5 = _possibleConstructorReturn(this, Object.getPrototypeOf(Itme).call(this, props));
+
+	        _this5.state = {
+	            count: 0
+	        };
+	        return _this5;
+	    }
+
+	    _createClass(Itme, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var count = findDOMNode(this.refs['carousel']).getElementsByTagName("li").length;
+	            this.setState({
+	                count: count
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            return _react2.default.createElement(
+	                'li',
+	                { className: 'arno-carousel-itme', style: { width: 100 / this.state.count + '%' } },
+	                this.props.children
+	            );
+	        }
+	    }]);
+
+	    return Itme;
+	}(_react2.default.Component);
+
+	var Carousel = function (_React$Component4) {
+	    _inherits(Carousel, _React$Component4);
 
 	    function Carousel(props) {
 	        _classCallCheck(this, Carousel);
 
-	        var _this5 = _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
+	        var _this6 = _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
 
-	        _this5.state = {
+	        _this6.state = {
 	            items: [],
-	            speed: 1.2, // 是图片切换的时候的速度时间，需要配置一个 number 类型的数据，决定时间是几秒
-	            delay: 2.1, // 是在需要自动轮播的时候，每张图片停留的时间，一个 number 值；
+	            delay: 10, // 是在需要自动轮播的时候，每张图片停留的时间，一个 number 值；
 	            pause: true, // 是在需要自动轮播的时候，鼠标停留在图片上，是否暂停轮播，是一个布尔值；
 	            autoPlay: true, //是配置是否需要自动轮播，是一个布尔值；
 	            dots: true, // 是配置是否需要轮播下面的小点 是一个布尔值；
 	            arrows: true, //是配置是否需要轮播的前后箭头 是一个布尔值；
 	            active: 1
 	        };
-	        _this5.setSpeed = _this5.setSpeed.bind(_this5);
-	        _this5.stopPlay = _this5.stopPlay.bind(_this5);
-	        _this5.autoPlay = _this5.autoPlay.bind(_this5);
+	        _this6.stopPlay = _this6.stopPlay.bind(_this6);
+	        _this6.autoPlay = _this6.autoPlay.bind(_this6);
 
-	        return _this5;
+	        return _this6;
 	    }
 
 	    _createClass(Carousel, [{
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
-	            this.autoPlay();
+
+	            var delay = this.state.delay,
+	                pause = this.state.pause,
+	                autoPlay = this.state.autoPlay,
+	                dots = this.state.dots,
+	                arrows = this.state.arrows;
+
+	            if (this.props.delay) {
+	                delay = this.props.delay;
+	            }
+	            if (this.props.pause == false) {
+	                pause = this.props.pause;
+	            }
+	            if (this.props.autoPlay == false) {
+	                autoPlay = this.props.autoPlay;
+	            }
+	            if (this.props.dots == false) {
+	                dots = this.props.dots;
+	            }
+	            if (this.props.arrows == false) {
+	                arrows = this.props.arrows;
+	            }
+	            this.setState({
+	                delay: delay, pause: pause, autoPlay: autoPlay, dots: dots, arrows: arrows
+	            });
 	        }
 	    }, {
 	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
+	        value: function componentDidMount() {
+	            this.width = findDOMNode(this.refs['carousel']).offsetWidth / (this.props.items.length + 2);
+	            findDOMNode(this.refs['carousel']).setAttribute('style', 'left: -' + this.width * this.state.active + 'px;width:' + (this.props.items.length + 2) * 100 + '%');
+	            if (this.state.autoPlay) {
+	                this.autoPlay();
+	            }
+	        }
 	    }, {
 	        key: 'autoPlay',
 	        value: function autoPlay() {
-	            if (this.state.pause) {
-	                var _this = this;
-	                clearInterval(this.t);
-	                this.t = setInterval(function () {
-	                    //_this.onClick(
-	                    //   _this.state.active + 1
-	                    //)
-	                }, this.state.delay * 1000);
+	            var _this7 = this;
+
+	            if (this.state.pause && this.state.autoPlay) {
+	                (function () {
+	                    var _this = _this7;
+	                    clearInterval(_this7.t);
+	                    _this7.t = setInterval(function () {
+	                        if (_this.state.active >= _this.props.items.length + 2) {
+	                            return;
+	                        }
+	                        _this.onClick(_this.state.active + 1);
+	                    }, _this7.state.delay * 1000 + _this7.width);
+	                })();
 	            }
 	        }
 	    }, {
 	        key: 'stopPlay',
 	        value: function stopPlay() {
-	            clearInterval(this.t);
+	            if (this.state.pause) {
+	                clearInterval(this.t);
+	            }
 	        }
 	    }, {
 	        key: 'componentDidUpdate',
@@ -247,52 +319,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var left = findDOMNode(this.refs['carousel']).offsetLeft;
 
 	            var speed = 1;
-	            var time = this.state.speed * 1000 / (-width * this.state.active - left);
+	            var oldSpeed = 1;
+
 	            if (-width * this.state.active < left) {
 	                speed = -1;
-	                time = this.state.speed * 1000 / (width * this.state.active + left);
+	                oldSpeed = -1;
 	            }
-	            console.log(left);
-	            console.log(width);
-	            console.log(-width * this.state.active);
-	            console.log(time);
-	            this.s = setInterval(function () {
-	                var width = findDOMNode(_this.refs['carousel']).offsetWidth / (_this.props.items.length + 2);
-	                var left = findDOMNode(_this.refs['carousel']).offsetLeft;
-	                var speed = 1;
-	                if (-width * _this.state.active == left) {
-	                    clearInterval(_this.s);
-	                }
-	                findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:' + (left + speed) + 'px;width:' + (_this.props.items.length + 2) * 100 + '%');
-	            }, time);
-	        }
-	    }, {
-	        key: 'setSpeed',
-	        value: function setSpeed() {
-	            clearInterval(this.s);
-	            var _this = this;
-	            var width = findDOMNode(this.refs['carousel']).offsetWidth / (this.props.items.length + 2);
-	            var left = findDOMNode(this.refs['carousel']).offsetLeft;
-	            var speed = 1;
-	            var time = this.state.speed * 1000 / (-width * this.state.active - left);
-	            if (-width * this.state.active < left) {
-	                speed = -1;
-	                time = this.state.speed * 1000 / (width * this.state.active + left);
+	            var sum = 0;
+	            if (-width * this.state.active != left) {
+	                this.s = setInterval(function () {
+
+	                    var width = findDOMNode(_this.refs['carousel']).offsetWidth / (_this.props.items.length + 2);
+	                    var left = findDOMNode(_this.refs['carousel']).offsetLeft;
+	                    sum += speed;
+	                    if (sum == 100) {
+	                        speed = speed * 30;
+	                    } else if (sum + 100 > width) {
+	                        speed = oldSpeed;
+	                    }
+	                    findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:' + (left + speed) + 'px;width:' + (_this.props.items.length + 2) * 100 + '%');
+	                    if (-width * _this.state.active == left) {
+	                        clearInterval(_this.s);
+	                        if (_this.state.active == 0) {
+	                            findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:-' + width * _this.props.items.length + 'px;width:' + (_this.props.items.length + 2) * 100 + '%');
+	                            _this.setState({
+	                                active: _this.props.items.length
+	                            });
+	                        } else if (_this.state.active == _this.props.items.length + 1) {
+	                            findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:-' + width * 1 + 'px;width:' + (_this.props.items.length + 2) * 100 + '%');
+	                            _this.setState({
+	                                active: 1
+	                            });
+	                        }
+	                    }
+	                }, 1);
 	            }
-	            this.s = setInterval(function () {
-	                var width = findDOMNode(_this.refs['carousel']).offsetWidth / (_this.props.items.length + 2);
-	                var left = findDOMNode(_this.refs['carousel']).offsetLeft;
-	                var speed = 1;
-	                if (-width * _this.state.active == left) {
-	                    clearInterval(_this.s);
-	                }
-	                findDOMNode(this.refs['carousel']).setAttribute('style', 'left:' + (left + speed) + ' px;width:' + (this.props.items.length + 2) * 100 + '%');
-	            }, time);
 	        }
 	    }, {
 	        key: 'onClick',
 	        value: function onClick(value) {
-	            console.log(value);
 	            this.setState({
 	                active: value
 	            });
@@ -300,7 +365,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.state.active);
 	            var count = this.props.items.length ? this.props.items.length + 2 : 0;
 	            var children = this.props.items.map(function (d, i) {
 	                if (d.href) {
@@ -336,12 +400,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ));
 	            var dotsNode = _react2.default.createElement(Dots, { items: this.props.items, active: this.state.active, onClick: this.onClick.bind(this) });
 	            var arrowsNode = _react2.default.createElement(Arrows, { active: this.state.active, onClick: this.onClick.bind(this) });
+
 	            var ulStyle = {
-	                left: -100 * this.state.active + "%",
-	                //transition: 'left ' + this.state.speed + "s",
 	                width: count * 100 + "%"
 	            };
-
+	            if (this.width) {
+	                ulStyle = {
+	                    width: count * 100 + "%"
+	                };
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'arno-carousel', onMouseOver: this.stopPlay, onMouseOut: this.autoPlay },
