@@ -9,6 +9,7 @@ h5拖拽组件
 - `onDrop (func)` 回调，反回调整后的数组（drop组件反回元素集，dustbin组件反回下标集）
 - `data (array)` 数据，为拖拽元素的集合
 - `mode (str)`    vertical  horizontal 支持垂直、水平   默认：vertical
+
 ### Drop
 ```jsx
 <Drop data={this.state.data} className="drop" childrenClass="children"

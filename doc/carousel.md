@@ -10,7 +10,7 @@
 - `autoPlay (bool)`默认 true 是配置是否需要自动轮播，是一个布尔值；
 - `dots (bool)`    默认 true 是配置是否需要轮播下面的小点 是一个布尔值；
 - `arrows (bool)`  默认 true 是配置是否需要轮播的前后箭头 是一个布尔值；
--
+
 ### Carousel
 ```jsx
 <Carousel delay={8} dots ={false} >
