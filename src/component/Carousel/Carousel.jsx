@@ -1,6 +1,5 @@
 import React from 'react';
-
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+var ReactCSSTransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 
 class Dots extends React.Component {
     constructor(props) {

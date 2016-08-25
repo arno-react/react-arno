@@ -9,7 +9,7 @@ module.exports = {
     externals: {
         'react': 'react',
         'react-dom': 'react-dom',
-        'react-addons-css-transition-group': 'react-addons-css-transition-group'
+        'react/lib/ReactCSSTransitionGroup': 'react/lib/ReactCSSTransitionGroup'
     },
     output: {
         path: path.join(__dirname, 'dist'),

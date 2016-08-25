@@ -12,7 +12,6 @@
 js
 - react
 - react-dom
-- react-addons-css-transition-group
 
 # 参与
 [传送门](./README.dev.md)

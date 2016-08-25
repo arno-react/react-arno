@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-addons-css-transition-group"));
+		module.exports = factory(require("react"), require("react/lib/ReactCSSTransitionGroup"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-addons-css-transition-group"], factory);
+		define(["react", "react/lib/ReactCSSTransitionGroup"], factory);
 	else if(typeof exports === 'object')
-		exports["Arno"] = factory(require("react"), require("react-addons-css-transition-group"));
+		exports["Arno"] = factory(require("react"), require("react/lib/ReactCSSTransitionGroup"));
 	else
-		root["Arno"] = factory(root["react"], root["react-addons-css-transition-group"]);
+		root["Arno"] = factory(root["react"], root["react/lib/ReactCSSTransitionGroup"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_8__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

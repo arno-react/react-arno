@@ -1,6 +1,7 @@
 import React from 'react';
 import {Drop ,Carousel} from '../dist/arno';
 const Dustbin = Drop.Dustbin;
+console.log(React.addons);
 class List extends React.Component {
     constructor(props) {
         super(props);
