@@ -2,7 +2,7 @@
 
 
 # DOC
-[文档](/doc/drop.md)
+[文档](/doc/README.md)
 
 有其他文档需求则提issue
 
