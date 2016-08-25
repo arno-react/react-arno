@@ -188,12 +188,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _this4 = _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
 
 	        _this4.state = {
-	            delay: 5, // 是在需要自动轮播的时候，每张图片停留的时间，一个 number 值；
-	            pause: true, // 是在需要自动轮播的时候，鼠标停留在图片上，是否暂停轮播，是一个布尔值；
-	            autoPlay: true, //是配置是否需要自动轮播，是一个布尔值；
-	            dots: true, // 是配置是否需要轮播下面的小点 是一个布尔值；
-	            arrows: true, //是配置是否需要轮播的前后箭头 是一个布尔值；
-	            active: 1
+	            delay: 5,
+	            pause: true,
+	            autoPlay: true,
+	            dots: true,
+	            arrows: true,
+	            active: 0
 	        };
 	        _this4.stopPlay = _this4.stopPlay.bind(_this4);
 	        _this4.autoPlay = _this4.autoPlay.bind(_this4);
@@ -295,7 +295,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	            var dotsNode = _react2.default.createElement(Dots, { letngth: this.props.children.length, active: this.state.active, onClick: this.onClick.bind(this) });
 	            var arrowsNode = _react2.default.createElement(Arrows, { active: this.state.active, onClick: this.onClick.bind(this) });
-	            console.log(this.props.children);
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'arno-carousel', onMouseOver: this.stopPlay, onMouseOut: this.autoPlay, ref: 'carousel' },

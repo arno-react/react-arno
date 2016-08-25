@@ -18,23 +18,6 @@ class List extends React.Component {
             ],
             SData: ['内容0', '内容1', '内容2', '内容3', '内容4', '内容5', '内容6', '内容7', '内容8', '内容10'],
             TData: [],
-            carouselData: [
-                {
-                    src: require('./images/1.jpg'),
-                    alt: 'images-1',
-                    href: 'baidu.com'
-                },
-                {
-                    src: require('./images/2.jpg'),
-                    alt: 'images-2',
-                    href: 'baidu.com'
-                },
-                {
-                    src: require('./images/1.jpg'),
-                    alt: 'images-3',
-                    href: 'baidu.com'
-                }
-            ]
         };
     }
 
@@ -102,7 +85,7 @@ class List extends React.Component {
                              onDrop={this.onDropT.bind(this)} mode="horizontal"/>
                 </div>
                 <div style={{width:640}}>
-                    <Carousel items={this.state.carouselData}>
+                    <Carousel >
                         <div>
                             <img src={require('./images/1.jpg')} alt="images-1"/>
                         </div>

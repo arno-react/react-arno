@@ -1,7 +1,7 @@
 {
-  "name": "react-drop",
+  "name": "react-arno",
   "version": "0.0.1",
-  "description": "",
+  "description": "react assembly",
   "main": "src/index.js",
   "style": "src/index.css",
   "keywords": [
@@ -24,14 +24,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arno-react/react-drop.git"
+    "url": "git+https://github.com/arno-react/react-arno.git"
   },
   "author": "arno",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/arno-react/react-drop/issues"
+    "url": "https://github.com/arno-react/react-arno/issues"
   },
-  "homepage": "https://github.com/arno-react/react-drop",
+  "homepage": "https://github.com/arno-react/react-arno",
   "devDependencies": {
     "assets-webpack-plugin": "^3.4.0",
     "autoprefixer": "^6.3.7",
