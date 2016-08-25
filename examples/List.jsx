@@ -18,21 +18,21 @@ class List extends React.Component {
             ],
             SData: ['内容0', '内容1', '内容2', '内容3', '内容4', '内容5', '内容6', '内容7', '内容8', '内容10'],
             TData: [],
-            carouselData:[
+            carouselData: [
                 {
                     src: require('./images/1.jpg'),
                     alt: 'images-1',
-                    href:'baidu.com'
+                    href: 'baidu.com'
                 },
                 {
                     src: require('./images/2.jpg'),
                     alt: 'images-2',
-                    href:'baidu.com'
+                    href: 'baidu.com'
                 },
                 {
                     src: require('./images/1.jpg'),
                     alt: 'images-3',
-                    href:'baidu.com'
+                    href: 'baidu.com'
                 }
             ]
         };
@@ -92,14 +92,27 @@ class List extends React.Component {
         return (
             <div>
                 <div>
-                    <Drop data={this.state.data} className="drop"  childrenClass="children" onDrop={this.onDrop.bind(this)} mode="horizontal"/>
+                    <Drop data={this.state.data} className="drop" childrenClass="children"
+                          onDrop={this.onDrop.bind(this)} mode="horizontal"/>
                 </div>
                 <div style={{overflow:'hidden'}}>
-                    <Dustbin data={SData} className="dustbin-div"  childrenClass="children"onDrop={this.onDropS.bind(this)} mode="horizontal"/>
-                    <Dustbin data={TData} className="dustbin-div"  childrenClass="children" onDrop={this.onDropT.bind(this)}mode="horizontal"/>
+                    <Dustbin data={SData} className="dustbin-div" childrenClass="children"
+                             onDrop={this.onDropS.bind(this)} mode="horizontal"/>
+                    <Dustbin data={TData} className="dustbin-div" childrenClass="children"
+                             onDrop={this.onDropT.bind(this)} mode="horizontal"/>
                 </div>
                 <div style={{width:640}}>
-                    <Carousel items={this.state.carouselData} />
+                    <Carousel items={this.state.carouselData}>
+                        <div>
+                            <img src={require('./images/1.jpg')} alt="images-1"/>
+                        </div>
+                        <div>
+                            <img src={require('./images/2.jpg')} alt="images-2"/>
+                        </div>
+                        <div>
+                            <img src={require('./images/1.jpg')} alt="images-3"/>
+                        </div>
+                    </Carousel>
                 </div>
             </div>
 

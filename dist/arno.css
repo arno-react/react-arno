@@ -12,24 +12,54 @@
   width: 100%;
   position: relative;
 }
-.arno-carousel .carousel {
-  -webkit-transition: left 1.2s;
-  transition: left 1.2s;
-}
-.arno-carousel > ul {
-  height: auto;
-  overflow: hidden;
-  position: relative;
-  left: 0;
-}
 .arno-carousel .arno-carousel-itme {
-  display: inline-block;
+  position: relative;
   height: auto;
 }
 .arno-carousel .arno-carousel-itme img, .arno-carousel .arno-carousel-itme a {
   display: block;
   height: auto;
   width: 100%;
+}
+.arno-carousel .carouselleft-enter {
+  left: -100%;
+  position: absolute;
+  top: 0;
+}
+.arno-carousel .carouselleft-enter-active {
+  left: 0;
+  -webkit-transition: left 300ms ease-in;
+  transition: left 300ms ease-in;
+  position: absolute;
+  top: 0;
+}
+.arno-carousel .carouselleft-leave {
+  left: 0;
+}
+.arno-carousel .carouselleft-leave-active {
+  left: 100%;
+  -webkit-transition: left 300ms ease-in;
+  transition: left 300ms ease-in;
+}
+.arno-carousel .carouselright-enter {
+  left: 100%;
+}
+.arno-carousel .carouselright-enter-active {
+  left: 0;
+  -webkit-transition: left 300ms ease-in;
+  transition: left 300ms ease-in;
+}
+.arno-carousel .carouselright-leave {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+.arno-carousel .carouselright-leave-active {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  -webkit-transition: left 300ms ease-in;
+  transition: left 300ms ease-in;
 }
 .arno-carousel .arno-carousel-arrows {
   display: inline-block;

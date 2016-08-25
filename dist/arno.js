@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-dom"));
+		module.exports = factory(require("react"), require("react-addons-css-transition-group"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-dom"], factory);
+		define(["react", "react-addons-css-transition-group"], factory);
 	else if(typeof exports === 'object')
-		exports["Arno"] = factory(require("react"), require("react-dom"));
+		exports["Arno"] = factory(require("react"), require("react-addons-css-transition-group"));
 	else
-		root["Arno"] = factory(root["react"], root["react-dom"]);
+		root["Arno"] = factory(root["react"], root["react-addons-css-transition-group"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_8__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -95,10 +95,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(8);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -107,8 +103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var findDOMNode = _reactDom2.default.findDOMNode;
-	console.log(_react2.default);
+	var ReactCSSTransitionGroup = __webpack_require__(8);
 
 	var Dots = function (_React$Component) {
 	    _inherits(Dots, _React$Component);
@@ -122,20 +117,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(Dots, [{
 	        key: 'dotsClick',
 	        value: function dotsClick(i) {
-	            this.props.onClick(i + 1);
+	            this.props.onClick(i);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
-
-	            var children = this.props.items.map(function (d, i) {
-	                if (_this3.props.active == i + 1) {
-	                    return _react2.default.createElement('span', { className: 'carousel-dot carousel-dot-selected', onClick: _this3.dotsClick.bind(_this3, i), key: i });
+	            var children = [];
+	            for (var i = 0; i < this.props.letngth; i++) {
+	                if (this.props.active == i) {
+	                    children.push(_react2.default.createElement('span', { className: 'carousel-dot carousel-dot-selected', onClick: this.dotsClick.bind(this, i), key: i }));
 	                } else {
-	                    return _react2.default.createElement('span', { className: 'carousel-dot', onClick: _this3.dotsClick.bind(_this3, i), key: i });
+	                    children.push(_react2.default.createElement('span', { className: 'carousel-dot', onClick: this.dotsClick.bind(this, i), key: i }));
 	                }
-	            });
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'arno-carousel-dots' },
@@ -159,7 +153,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(Arrows, [{
 	        key: 'arrowsClick',
 	        value: function arrowsClick(i) {
-
 	            this.props.onClick(this.props.active + i);
 	        }
 	    }, {
@@ -186,64 +179,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return Arrows;
 	}(_react2.default.Component);
 
-	var Itme = function (_React$Component3) {
-	    _inherits(Itme, _React$Component3);
-
-	    function Itme(props) {
-	        _classCallCheck(this, Itme);
-
-	        var _this5 = _possibleConstructorReturn(this, Object.getPrototypeOf(Itme).call(this, props));
-
-	        _this5.state = {
-	            count: 0
-	        };
-	        return _this5;
-	    }
-
-	    _createClass(Itme, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var count = findDOMNode(this.refs['carousel']).getElementsByTagName("li").length;
-	            this.setState({
-	                count: count
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            return _react2.default.createElement(
-	                'li',
-	                { className: 'arno-carousel-itme', style: { width: 100 / this.state.count + '%' } },
-	                this.props.children
-	            );
-	        }
-	    }]);
-
-	    return Itme;
-	}(_react2.default.Component);
-
-	var Carousel = function (_React$Component4) {
-	    _inherits(Carousel, _React$Component4);
+	var Carousel = function (_React$Component3) {
+	    _inherits(Carousel, _React$Component3);
 
 	    function Carousel(props) {
 	        _classCallCheck(this, Carousel);
 
-	        var _this6 = _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
+	        var _this4 = _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
 
-	        _this6.state = {
-	            items: [],
-	            delay: 10, // 是在需要自动轮播的时候，每张图片停留的时间，一个 number 值；
+	        _this4.state = {
+	            delay: 5, // 是在需要自动轮播的时候，每张图片停留的时间，一个 number 值；
 	            pause: true, // 是在需要自动轮播的时候，鼠标停留在图片上，是否暂停轮播，是一个布尔值；
 	            autoPlay: true, //是配置是否需要自动轮播，是一个布尔值；
 	            dots: true, // 是配置是否需要轮播下面的小点 是一个布尔值；
 	            arrows: true, //是配置是否需要轮播的前后箭头 是一个布尔值；
 	            active: 1
 	        };
-	        _this6.stopPlay = _this6.stopPlay.bind(_this6);
-	        _this6.autoPlay = _this6.autoPlay.bind(_this6);
-
-	        return _this6;
+	        _this4.stopPlay = _this4.stopPlay.bind(_this4);
+	        _this4.autoPlay = _this4.autoPlay.bind(_this4);
+	        _this4.type = 'carouselright';
+	        return _this4;
 	    }
 
 	    _createClass(Carousel, [{
@@ -278,8 +233,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this.width = findDOMNode(this.refs['carousel']).offsetWidth / (this.props.items.length + 2);
-	            findDOMNode(this.refs['carousel']).setAttribute('style', 'left: -' + this.width * this.state.active + 'px;width:' + (this.props.items.length + 2) * 100 + '%');
 	            if (this.state.autoPlay) {
 	                this.autoPlay();
 	            }
@@ -287,18 +240,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'autoPlay',
 	        value: function autoPlay() {
-	            var _this7 = this;
+	            var _this5 = this;
 
 	            if (this.state.pause && this.state.autoPlay) {
 	                (function () {
-	                    var _this = _this7;
-	                    clearInterval(_this7.t);
-	                    _this7.t = setInterval(function () {
-	                        if (_this.state.active >= _this.props.items.length + 2) {
+	                    var _this = _this5;
+	                    clearInterval(_this5.t);
+	                    _this5.t = setInterval(function () {
+	                        if (_this.state.active >= _this.props.children.length) {
 	                            return;
 	                        }
 	                        _this.onClick(_this.state.active + 1);
-	                    }, _this7.state.delay * 1000 + _this7.width);
+	                    }, _this5.state.delay * 1000);
 	                })();
 	            }
 	        }
@@ -311,53 +264,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }, {
 	        key: 'componentDidUpdate',
-	        value: function componentDidUpdate() {
-
-	            clearInterval(this.s);
-	            var _this = this;
-	            var width = findDOMNode(this.refs['carousel']).offsetWidth / (this.props.items.length + 2);
-	            var left = findDOMNode(this.refs['carousel']).offsetLeft;
-
-	            var speed = 1;
-	            var oldSpeed = 1;
-
-	            if (-width * this.state.active < left) {
-	                speed = -1;
-	                oldSpeed = -1;
-	            }
-	            var sum = 0;
-	            if (-width * this.state.active != left) {
-	                this.s = setInterval(function () {
-
-	                    var width = findDOMNode(_this.refs['carousel']).offsetWidth / (_this.props.items.length + 2);
-	                    var left = findDOMNode(_this.refs['carousel']).offsetLeft;
-	                    sum += speed;
-	                    if (sum == 100) {
-	                        speed = speed * 30;
-	                    } else if (sum + 100 > width) {
-	                        speed = oldSpeed;
-	                    }
-	                    findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:' + (left + speed) + 'px;width:' + (_this.props.items.length + 2) * 100 + '%');
-	                    if (-width * _this.state.active == left) {
-	                        clearInterval(_this.s);
-	                        if (_this.state.active == 0) {
-	                            findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:-' + width * _this.props.items.length + 'px;width:' + (_this.props.items.length + 2) * 100 + '%');
-	                            _this.setState({
-	                                active: _this.props.items.length
-	                            });
-	                        } else if (_this.state.active == _this.props.items.length + 1) {
-	                            findDOMNode(_this.refs['carousel']).setAttribute('style', 'left:-' + width * 1 + 'px;width:' + (_this.props.items.length + 2) * 100 + '%');
-	                            _this.setState({
-	                                active: 1
-	                            });
-	                        }
-	                    }
-	                }, 1);
-	            }
-	        }
+	        value: function componentDidUpdate() {}
 	    }, {
 	        key: 'onClick',
 	        value: function onClick(value) {
+	            if (value < this.state.active) {
+	                this.type = 'carouselright';
+	            } else {
+	                this.type = 'carouselleft';
+	            }
+	            if (value < 0) {
+	                value = this.props.children.length - 1;
+	            } else if (value >= this.props.children.length) {
+	                value = 0;
+	            }
 	            this.setState({
 	                active: value
 	            });
@@ -365,57 +285,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var count = this.props.items.length ? this.props.items.length + 2 : 0;
-	            var children = this.props.items.map(function (d, i) {
-	                if (d.href) {
-	                    return _react2.default.createElement(
-	                        'li',
-	                        { className: 'arno-carousel-itme', style: { width: 100 / count + '%' }, key: i },
-	                        _react2.default.createElement(
-	                            'a',
-	                            { href: d.href },
-	                            _react2.default.createElement('img', { src: d.src, alt: d.alt })
-	                        )
-	                    );
-	                } else {
-	                    return _react2.default.createElement(
-	                        'li',
-	                        { className: 'arno-carousel-itme', style: { width: 100 / count + '%' }, key: i },
-	                        _react2.default.createElement('img', { src: d.src, alt: d.alt })
-	                    );
-	                }
-	            });
-	            children.push(_react2.default.createElement(
-	                'li',
-	                { className: 'arno-carousel-itme', style: { width: 100 / count + '%' }, key: this.props.items.length,
-	                    onMouseOver: this.stopPlay, onMouseOut: this.autoPlay },
-	                _react2.default.createElement('img', { src: this.props.items[0].src, alt: this.props.items[0].alt })
-	            ));
-	            children.unshift(_react2.default.createElement(
-	                'li',
-	                { className: 'arno-carousel-itme', style: { width: 100 / count + '%' }, key: -1,
-	                    onMouseOver: this.stopPlay, onMouseOut: this.autoPlay },
-	                _react2.default.createElement('img', { src: this.props.items[this.props.items.length - 1].src,
-	                    alt: this.props.items[this.props.items.length - 1].alt })
-	            ));
-	            var dotsNode = _react2.default.createElement(Dots, { items: this.props.items, active: this.state.active, onClick: this.onClick.bind(this) });
-	            var arrowsNode = _react2.default.createElement(Arrows, { active: this.state.active, onClick: this.onClick.bind(this) });
 
-	            var ulStyle = {
-	                width: count * 100 + "%"
-	            };
-	            if (this.width) {
-	                ulStyle = {
-	                    width: count * 100 + "%"
-	                };
-	            }
+	            var children = this.props.children.map(function (d, i) {
+	                return _react2.default.createElement(
+	                    'span',
+	                    { className: 'arno-carousel-itme', key: i },
+	                    d
+	                );
+	            });
+	            var dotsNode = _react2.default.createElement(Dots, { letngth: this.props.children.length, active: this.state.active, onClick: this.onClick.bind(this) });
+	            var arrowsNode = _react2.default.createElement(Arrows, { active: this.state.active, onClick: this.onClick.bind(this) });
+	            console.log(this.props.children);
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'arno-carousel', onMouseOver: this.stopPlay, onMouseOut: this.autoPlay },
+	                { className: 'arno-carousel', onMouseOver: this.stopPlay, onMouseOut: this.autoPlay, ref: 'carousel' },
 	                _react2.default.createElement(
-	                    'ul',
-	                    { style: ulStyle, ref: 'carousel' },
-	                    children
+	                    ReactCSSTransitionGroup,
+	                    { transitionName: this.type, className: 'carousel',
+	                        transitionLeaveTimeout: 300, transitionEnterTimeout: 300 },
+	                    children[this.state.active]
 	                ),
 	                this.state.arrows ? arrowsNode : null,
 	                this.state.dots ? dotsNode : null

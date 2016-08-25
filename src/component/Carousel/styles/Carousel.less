@@ -3,26 +3,55 @@
   overflow: hidden;
   width: 100%;
   position: relative;
- .carousel{
-   transition:left 1.2s
- }
-  & > ul {
-    height: auto;
-    overflow: hidden;
-    position: relative;
-    left: 0;
+  .carousel {
 
   }
-
   .arno-carousel-itme {
-    display: inline-block;
+    position: relative;
     height: auto;
-
-    & img ,& a{
+    & img, & a {
       display: block;
       height: auto;
       width: 100%;
     }
+  }
+
+  .carouselleft-enter {
+    left: -100%;
+    position: absolute;
+    top:0;
+  }
+  .carouselleft-enter-active {
+    left: 0;
+    transition: left 300ms ease-in;
+    position: absolute;
+    top:0;
+  }
+  .carouselleft-leave {
+    left: 0;
+  }
+  .carouselleft-leave-active {
+
+    left: 100%;
+    transition: left 300ms ease-in;
+  }
+  .carouselright-enter {
+    left: 100%;
+  }
+  .carouselright-enter-active {
+    left: 0;
+    transition: left 300ms ease-in;
+  }
+  .carouselright-leave {
+    left: 0;
+    position: absolute;
+    top:0;
+  }
+  .carouselright-leave-active {
+    position: absolute;
+    top:0;
+    left: -100%;
+    transition: left 300ms ease-in;
   }
 
   .arno-carousel-arrows {
