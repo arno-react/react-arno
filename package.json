@@ -2,8 +2,8 @@
   "name": "react-arno",
   "version": "0.0.1",
   "description": "react assembly",
-  "main": "src/index.js",
-  "style": "src/index.css",
+  "main": "dist/arno.min.js",
+  "style": "dist/arno.min.css",
   "keywords": [
     "react",
     "arno",
