@@ -50,6 +50,11 @@ module.exports = {
                 "target": "http://0.0.0.0:3000",
                 "secure": false
             }
-        }
+        },
+        hot: true,
+        noInfo: false,
+        historyApiFallback: true,
+        host: '0.0.0.0',
+        port: 3000
     }
 };
